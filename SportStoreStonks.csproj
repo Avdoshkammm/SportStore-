@@ -28,8 +28,4 @@
     <Resource Include="Resources\img1.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-
 </Project>

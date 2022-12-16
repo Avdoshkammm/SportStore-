@@ -21,15 +21,40 @@ namespace SportStoreStonks
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
 
+            statusUser.Text = user.RoleNavigation.Name;
+
             using (SportStoreContext db = new SportStoreContext())
             {
-                User user = db.Users.FirstOrDefault();
-                MessageBox.Show("db connection is sakcess");
+                if (user != null)
+                {
+                    statusUser.Text = user.RoleNavigation.Name;
+                    MessageBox.Show($"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}. \r\t");
+                }
+                else
+                {
+                    statusUser.Text = "Гость";
+                    MessageBox.Show("Гость");
+                }
+
+                productlistView.ItemsSource = db.Products.ToList();
             }
+
+        }
+
+        private void productListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ExitToFirst_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow log = new LoginWindow();
+            log.Show();
+            this.Close();
 
         }
     }
