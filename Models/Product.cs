@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace SportStoreStonks.Models;
 
@@ -21,11 +22,12 @@ public partial class Product
 
     public decimal Cost { get; set; }
 
-    public byte? DiscountAmount { get; set; }
+    public decimal DiscountAmount { get; set; }
 
     public int QuantityInStock { get; set; }
 
     public string Status { get; set; } = null!;
 
     public virtual ICollection<OrderProduct> OrderProducts { get; } = new List<OrderProduct>();
+    public SerializationInfo? imageBoxPath { get; internal set; }
 }

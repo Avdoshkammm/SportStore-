@@ -57,5 +57,10 @@ namespace SportStoreStonks
             this.Close();
 
         }
+
+        private void addUserButtonClick(object sender, RoutedEventArgs e)
+        {
+            new AddProductWindow().ShowDialog();
+        }
     }
 }
