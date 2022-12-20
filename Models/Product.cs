@@ -27,7 +27,9 @@ public partial class Product
     public int QuantityInStock { get; set; }
 
     public string Status { get; set; } = null!;
-
+    Product? currentProduct;
+    string? oldImage;
+    string? newImage;
+    public string imageBoxPath { get; set; }
     public virtual ICollection<OrderProduct> OrderProducts { get; } = new List<OrderProduct>();
-    public SerializationInfo? imageBoxPath { get; internal set; }
 }

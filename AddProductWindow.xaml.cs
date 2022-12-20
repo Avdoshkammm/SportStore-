@@ -1,6 +1,7 @@
 ﻿using SportStoreStonks.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace SportStoreStonks
         {
             using (SportStoreContext db = new SportStoreContext())
             {
+
                 try
                 {
                     Product product = new Product()
@@ -113,6 +115,65 @@ namespace SportStoreStonks
             {
                 MessageBox.Show(errors.ToString());
                 return;
+            }
+        }
+
+        private void AddImageToUser(object sender, RoutedEventArgs e)
+        {
+            Product? currentProduct;
+            string? oldImage;
+            string? newImage;
+            string? newImagePath;
+
+
+
+            Stream myStream;
+
+            if (currentProduct != null)
+            {
+                oldImage = System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{currentProduct.Photo}");
+            }
+            else
+            {
+                oldImage = null;
+            }
+
+            // проверяем, есть ли изображение у товара и запоминаем путь к изображению сейчас
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            if (dlg.ShowDialog() == true)
+            {
+                if ((myStream = dlg.OpenFile()) != null)
+                {
+                    dlg.DefaultExt = ".png";
+                    dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+                    dlg.Title = "Open Image";
+                    dlg.InitialDirectory = "./";
+
+                    // Предпросмотр изображения
+                    BitmapImage image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                    image.UriSource = new Uri(dlg.FileName);
+
+                    image.DecodePixelWidth = 200;
+                    image.DecodePixelHeight = 300;
+                    imageBoxPath.Source = image;
+                    image.EndInit();
+
+                    try
+                    {
+                        newImage = dlg.SafeFileName;
+                        newImagePath = dlg.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                myStream.Dispose();
             }
         }
     }
