@@ -54,7 +54,7 @@ public partial class SportStoreContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__OrderProd__Order__34C8D9D1");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.OrderProducts)
+            object value = entity.HasOne(d => d.Product).WithMany(p => p.Order)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__OrderProd__Produ__2F10007B");

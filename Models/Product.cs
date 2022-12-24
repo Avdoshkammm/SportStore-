@@ -27,9 +27,6 @@ public partial class Product
     public int QuantityInStock { get; set; }
 
     public string Status { get; set; } = null!;
-    Product? currentProduct;
-    string? oldImage;
-    string? newImage;
-    public string imageBoxPath { get; set; }
-    public virtual ICollection<OrderProduct> OrderProducts { get; } = new List<OrderProduct>();
+
+    public virtual string? ImagePath { get { return System.IO.Path.Combine(Environment.CurrentDirectory, $"images/jostick.jpg"); } }
 }
